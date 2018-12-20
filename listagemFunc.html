@@ -1,0 +1,71 @@
+<!Doctype html>
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<body>
+<script>
+$(document).ready(function(){
+
+var str = window.location.href;    
+    var regex = /[&?](\w+)=(\w+)/g;    
+    var arr, parametros = {};    
+    while(arr = regex.exec(str)){        
+        parametros[arr[1]] = arr[2];
+      }
+      
+      if(parametros.msg=='n'){
+       $("#msg").text("Erro ao executar Acao");
+       $("#msg").attr("class","alert alert-danger");
+      }else if(parametros.msg!=undefined){
+      $("#msg").text("Acao executada com Sucesso");
+       $("#msg").attr("class","alert alert-success");
+      }
+
+
+// criar xmlhttprequest
+					var xhr = new XMLHttpRequest();
+					
+					xhr.open("GET","http://localhost:8080/ListFunc.php ");
+
+					// verificar as mudanças de estado
+					xhr.onreadystatechange = function(){
+						if(xhr.readyState == 4){
+							var resposta = JSON.parse(xhr.responseText);
+			
+			for(var i = 0; i < resposta.records.length; i++){
+					
+							$("#dados").append("<tr><td>"+resposta.records[i].nome+"</td><td>"+resposta.records[i].email+"</td><td>"+resposta.records[i].cpf+"</td><td>"+resposta.records[i].telefone+"</td><td><a href='/DeleteFunc.php? id="+resposta.records[i].id+"'>Excluir</a></td><td><a href='editFunc.html?id="+resposta.records[i].id+"'>Editar</a></td></tr>");
+			
+			
+      }
+							
+			
+			}
+										
+
+   }
+								
+xhr.send(null);
+
+  }
+
+);
+
+</script>
+<div id="msg"></div><br>
+<a href="home.html"><button type="button" class="btn btn-info">Voltar ao Menu Principal</button></a>
+<table class="table table-responsive">
+<thead>
+<tr><th>Nome</th><th>Email</th><th>CPF</th><th>Telefone</th>
+</tr>
+</thead>
+<tbody id="dados">
+
+</tbody>
+</table>
+
+
+</body>
+</html>

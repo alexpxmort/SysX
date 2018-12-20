@@ -1,0 +1,152 @@
+<!Doctype html>
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<body>
+<script>
+$(document).ready(function(){
+
+var str = window.location.href;    
+    var regex = /[&?](\w+)=(\w+)/g;    
+    var arr, parametros = {};    
+    while(arr = regex.exec(str)){        
+        parametros[arr[1]] = arr[2];
+      }
+      
+      if(parametros.msg=='n'){
+       $("#msg").text("Erro ao editar Funcionario,verique se todos os dados foram preenchidos");
+       $("#msg").attr("class","alert alert-danger");
+      }else if(parametros.msg!=undefined){
+      $("#msg").text("Funcionario alterado com Sucesso");
+       $("#msg").attr("class","alert alert-success");
+      }
+
+					
+
+					var nome = document.getElementById("nome");
+					var email = document.getElementById("email");			
+					var cpf = document.getElementById("cpf");
+					var tel = document.getElementById("tel");
+
+			
+
+						
+
+					var xhr = new XMLHttpRequest();
+					
+					xhr.open("GET","http://localhost:8080/ListFunc.php");
+
+
+					// verificar as mudanças de estado
+					xhr.onreadystatechange = function(){
+					
+						if(xhr.readyState == 4){
+							var resposta = JSON.parse(xhr.responseText);
+							
+							var str = window.location.href;    
+    var regex = /[&?](\w+)=(\w+)/g;    
+    var arr, parametros = {};    
+    while(arr = regex.exec(str)){        
+        parametros[arr[1]] = arr[2];
+    }
+     
+							var id=parametros.id;
+							var id_=document.getElementById("id_");
+     id_.value=id;	
+     
+													
+for(var i = 0; i < resposta.records.length; i++){
+
+
+if(resposta.records[i].id==id){
+nome.value=resposta.records[i].nome;
+email.value=resposta.records[i].email;
+cpf.value=resposta.records[i].cpf;
+
+tel.value=resposta.records[i].telefone;
+
+empid=resposta.records[i].empresa;
+
+funcdid=resposta.records[i].id;
+  }
+ }
+
+ }
+			
+ }
+
+
+								
+xhr.send(null);
+
+
+var xhr2 = new XMLHttpRequest();
+					
+xhr2.open("GET","http://localhost:8080/ListEmp.php ");
+
+					// verificar as mudanças de estado
+					xhr2.onreadystatechange = function(){
+						if(xhr2.readyState == 4){
+							var resposta = JSON.parse(xhr2.responseText);
+					
+			for(var i = 0; i < resposta.records.length; i++){
+			
+			
+			if(empid==resposta.records[i].id){
+			$("#emp").append(
+"<option							value="+resposta.records[i].id+"  selected>"+resposta.records[i].nome+"</option>");
+			
+			
+			}else{
+			
+			
+							$("#emp").append(
+"<option							value="+resposta.records[i].id+" >"+resposta.records[i].nome+"</option>");
+ }
+			
+			
+ }
+
+			}
+										
+
+ }
+
+				
+xhr2.send(null);
+					
+				});
+				
+
+		</script>
+
+<br>
+<h1 class="lead">Edicao de Funcionarios</h1>
+
+<form action="EditFunc.php" method="post">
+Nome <input type="text" name="nome" id="nome" class="form form-control"/>
+<br>
+<input type="hidden" name="id" id="id_"/>
+Email <input type="email" name="email" id="email" class="form form-control"/>
+<br>
+CPF <input type="text" name="cpf" id="cpf" class="form form-control"/>
+<br>
+Telefone <input type="text" name="telefone" id="tel" class="form form-control"/>
+<br>
+Empresa <select name="empresa" id="emp" class="form form-control">
+
+</select>
+<br>
+<button type="submit" id="btn" class=" btn btn-success">Salvar</button>
+</form>
+
+
+<br>
+<div id="msg"></div>
+<br>
+<a href="home.html"><button type="button" class="btn btn-info">Voltar ao Menu Principal</button></a>
+
+</body>
+</html>
