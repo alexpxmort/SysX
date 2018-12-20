@@ -1,0 +1,35 @@
+<!Doctype html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<body>
+<script>
+$(document).ready(function(){
+$("#sair").click(function(){
+
+window.location.href="login.html";
+
+});
+});
+</script>
+
+<nav id="menu">
+<div class="dropdown">
+ <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Empresa </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="cad.html">Cadastro</a> <a class="dropdown-item" href="listagem.html">Listagem</a> <a class="dropdown-item" href="cadFunc.html">Cadadastro de Funcionarios</a> 
+</div>
+<br><br>
+<div class="dropdown"> <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="op2"> Funcionario </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">  <a class="dropdown-item" href="listagemFunc.html">Listagem</a></div>
+</nav>
+<br>
+<button type="button" id="sair" class="btn btn-info">Sair</button>
+<br>
+
+<br>
+<h1 class="jumbotron jumbotron-fluid">SysX</h1>
+<h2>Seja Bem vindo!!! Tenha controle sobre as empresas e seus Funcionários!!</h2>
+
+</body>
+</html>
